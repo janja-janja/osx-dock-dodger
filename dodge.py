@@ -11,7 +11,7 @@ class OSXDodger(object):
         """
         Read all applications in the `/Applications/` dir
         """
-        pass
+        self.pc_is_macintosh()
 
     def select_applications(self):
         """
@@ -54,4 +54,4 @@ class OSXDodger(object):
             return False
 
 dodge = OSXDodger("/Applications/")
-dodge.pc_is_macintosh()
+dodge.load_applications()
