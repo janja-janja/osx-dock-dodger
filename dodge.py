@@ -2,7 +2,8 @@ import platform
 
 
 class OSXDodger(object):
-    allowed_version = "10.12.1"
+    allowed_version = "10.6.1"
+    allowed_system = "darwin"
 
     def __init__(self, applications_dir):
         self.app_dir = applications_dir
@@ -45,7 +46,7 @@ class OSXDodger(object):
         sys_version = int((platform.mac_ver())[0].replace(".", ""))
         allowed_version = int(cls.allowed_version.replace(".", ""))
 
-        if (system == "darwin") and (sys_version >= allowed_version):
+        if (system == cls.allowed_system) and (sys_version >= allowed_version):
             return True
         else:
             print("\nSorry :(")
