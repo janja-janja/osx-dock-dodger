@@ -34,12 +34,15 @@ class OSXDodger(BaseColors):
             print(self.GREEN + "Loading applications..." + self.ENDCOLOR)
             time.sleep(1)
 
-            print(self.WARNING + "\n\nAPP NUMBER\t\tAPPLICATION NAME" +
+            print(self.WARNING + "\n\nAPP NUMBER\t\t\tAPPLICATION NAME" +
                   self.ENDCOLOR)
 
             for index, app in enumerate(all_apps):
                 if app not in self.system_files:
-                    print (index + 1), "\t\t\t" + app.replace(".app", "")
+                    seperator = "-------------------->"
+                    tabs = "\t"
+                    print (index + 1), tabs + seperator + tabs + \
+                        app.replace(".app", "")
 
     def select_applications(self):
         """
