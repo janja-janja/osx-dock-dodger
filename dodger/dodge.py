@@ -18,12 +18,11 @@ class BaseColors(object):
 
 
 class OSXDodger(BaseColors):
-    allowed_version = "10.6.1"
-    allowed_system = "darwin"
-    system_files = [".DS_Store", ".localized"]
-
-    def __init__(self, applications_dir):
-        self.app_dir = applications_dir
+    def __init__(self):
+        self.app_dir = "/Applications/"
+        self.allowed_version = "10.6.1"
+        self.allowed_sys = "darwin"
+        self.system_files = [".DS_Store", ".localized"]
 
     def load_applications(self):
         """
@@ -66,23 +65,22 @@ class OSXDodger(BaseColors):
         """
         pass
 
-    @classmethod
-    def pc_is_macintosh(cls):
+    def pc_is_macintosh(self):
         """
         Check if it is an `Apple Computer` i.e a Mac
         @return bool
         """
         system = platform.system().lower()
         sys_version = int((platform.mac_ver())[0].replace(".", ""))
-        allowed_version = int(cls.allowed_version.replace(".", ""))
+        allowed_version = int(self.allowed_version.replace(".", ""))
 
-        if (system == cls.allowed_system) and (sys_version >= allowed_version):
+        if (system == self.allowed_sys) and (sys_version >= allowed_version):
             return True
         else:
             print("\nSorry :(")
             print("FAILED. OsX-dock-dodger is only applicable to computers " +
-                  "running OS X {} or higher".format(cls.allowed_version))
+                  "running OS X {} or higher".format(self.allowed_version))
             return False
 
-dodge = OSXDodger("/Applications/")
+dodge = OSXDodger()
 dodge.load_applications()
