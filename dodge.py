@@ -1,18 +1,44 @@
 import platform
+import os
+import time
 
 
-class OSXDodger(object):
+class BaseColors(object):
+    """
+    Holds base colors used in `terminal`
+    """
+    HEADER = "\033[95m"
+    BLUE = "\033[94m"
+    GREEN = "\033[92m"
+    WARNING = "\033[93m"
+    RED = "\033[91m"
+    ENDCOLOR = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+
+
+class OSXDodger(BaseColors):
     allowed_version = "10.6.1"
     allowed_system = "darwin"
 
-    def __init__(self, applications_dir):
-        self.app_dir = applications_dir
+    def __init__(self):
+        self.app_dir = "/Applications/"
+        self.system_files = [".DS_Store", ".localized"]
 
     def load_applications(self):
         """
         Read all applications in the `/Applications/` dir
         """
-        self.pc_is_macintosh()
+        if self.pc_is_macintosh():
+            all_apps = os.listdir(self.app_dir)
+            print(BaseColors.GREEN + "Loading applications...")
+            time.sleep(1)
+
+            print("\n\nAPP NUMBER\t\tAPPLICATION NAME" + BaseColors.ENDCOLOR)
+
+            for index, app in enumerate(all_apps):
+                if app not in self.system_files:
+                    print (index + 1), "\t\t\t" + app.replace(".app", "")
 
     def select_applications(self):
         """
@@ -54,5 +80,5 @@ class OSXDodger(object):
                   "running OS X {} or higher".format(cls.allowed_version))
             return False
 
-dodge = OSXDodger("/Applications/")
+dodge = OSXDodger()
 dodge.load_applications()
