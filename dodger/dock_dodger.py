@@ -71,8 +71,8 @@ class OSXDodger(BaseColors):
         @return bool
         """
         system = platform.system().lower()
-
-        if (system == self.allowed_sys) and (self.check_os_version()):
+        sys_version = platform.mac_ver()[0]
+        if (system == self.allowed_sys) and (self.os_version(sys_version)):
             return True
         else:
             print("\nSorry :(")
@@ -80,17 +80,14 @@ class OSXDodger(BaseColors):
                   "running OS X {} or higher".format(self.allowed_version))
             return False
 
-    def check_os_version(self):
+    def os_version(self, sys_version):
         """
         Check that the OS X version meets the requiredments
         """
-        sys_version = int((platform.mac_ver())[0].replace(".", ""))
+        sys_version = int((sys_version).replace(".", ""))
         allowed_version = int(self.allowed_version.replace(".", ""))
 
-        if sys_version >= allowed_version:
-            return True
-        else:
-            return False
+        return (sys_version >= allowed_version)
 
 dodge = OSXDodger()
 dodge.load_applications()
