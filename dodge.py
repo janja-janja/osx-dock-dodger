@@ -31,10 +31,11 @@ class OSXDodger(BaseColors):
         """
         if self.pc_is_macintosh():
             all_apps = os.listdir(self.app_dir)
-            print(BaseColors.GREEN + "Loading applications...")
+            print(self.GREEN + "Loading applications..." + self.ENDCOLOR)
             time.sleep(1)
 
-            print("\n\nAPP NUMBER\t\tAPPLICATION NAME" + BaseColors.ENDCOLOR)
+            print(self.WARNING + "\n\nAPP NUMBER\t\tAPPLICATION NAME" +
+                  self.ENDCOLOR)
 
             for index, app in enumerate(all_apps):
                 if app not in self.system_files:
