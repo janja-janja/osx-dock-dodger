@@ -71,15 +71,25 @@ class OSXDodger(BaseColors):
         @return bool
         """
         system = platform.system().lower()
-        sys_version = int((platform.mac_ver())[0].replace(".", ""))
-        allowed_version = int(self.allowed_version.replace(".", ""))
 
-        if (system == self.allowed_sys) and (sys_version >= allowed_version):
+        if (system == self.allowed_sys) and (self.check_os_version()):
             return True
         else:
             print("\nSorry :(")
             print("FAILED. OsX-dock-dodger is only applicable to computers " +
                   "running OS X {} or higher".format(self.allowed_version))
+            return False
+
+    def check_os_version(self):
+        """
+        Check that the OS X version meets the requiredments
+        """
+        sys_version = int((platform.mac_ver())[0].replace(".", ""))
+        allowed_version = int(self.allowed_version.replace(".", ""))
+
+        if sys_version >= allowed_version:
+            return True
+        else:
             return False
 
 dodge = OSXDodger()
