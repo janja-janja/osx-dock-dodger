@@ -7,14 +7,14 @@ class BaseColors(object):
     """
     Holds color codes to be used in the `terminal`
     """
-    HEADER = '\033[95m'
-    BLUE = '\033[94m'
-    GREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDCOLOR = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+    HEADER = "\033[95m"
+    BLUE = "\033[94m"
+    GREEN = "\033[92m"
+    WARNING = "\033[93m"
+    FAIL = "\033[91m"
+    ENDCOLOR = "\033[0m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
 
 
 class OSXDodger(BaseColors):
@@ -71,16 +71,23 @@ class OSXDodger(BaseColors):
         @return bool
         """
         system = platform.system().lower()
-        sys_version = int((platform.mac_ver())[0].replace(".", ""))
-        allowed_version = int(self.allowed_version.replace(".", ""))
-
-        if (system == self.allowed_sys) and (sys_version >= allowed_version):
+        sys_version = platform.mac_ver()[0]
+        if (system == self.allowed_sys) and (self.os_version(sys_version)):
             return True
         else:
             print("\nSorry :(")
             print("FAILED. OsX-dock-dodger is only applicable to computers " +
                   "running OS X {} or higher".format(self.allowed_version))
             return False
+
+    def os_version(self, sys_version):
+        """
+        Check that the OS X version meets the requiredments
+        """
+        sys_version = int((sys_version).replace(".", ""))
+        allowed_version = int(self.allowed_version.replace(".", ""))
+
+        return (sys_version >= allowed_version)
 
 dodge = OSXDodger()
 dodge.load_applications()
