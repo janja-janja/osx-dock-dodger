@@ -29,18 +29,18 @@ class OSXDodger(BaseColors):
         Read all applications in the `/Applications/` dir
         """
         if self.pc_is_macintosh():
-            all_apps = os.listdir(self.app_dir)
+            self.all_apps = os.listdir(self.app_dir)
             print(self.GREEN + "Loading applications..." + self.ENDCOLOR)
             time.sleep(1)
 
             print(self.WARNING + "\n\nAPP NUMBER\t\t\tAPPLICATION NAME" +
                   self.ENDCOLOR)
 
-            for index, app in enumerate(all_apps):
+            for self.index, app in enumerate(self.all_apps):
                 if app not in self.system_files:
                     seperator = "-------------------->"
                     tabs = "\t"
-                    print (index + 1), tabs + seperator + tabs + \
+                    print (self.index), tabs + seperator + tabs + \
                         app.replace(".app", "")
 
     def select_applications(self):
@@ -48,7 +48,34 @@ class OSXDodger(BaseColors):
         Allow user to select an application they want
         not to appear on the Dock
         """
-        pass
+        # load applications
+        self.load_applications()
+
+        print(self.BOLD)
+        print("\nPlease choose an application to hide from the dock.\n(Enter "
+              "the application number provided on the left hand side)")
+        print(self.ENDCOLOR)
+
+        done = True
+        while done:
+            selected_app_number = raw_input()
+            try:
+                selected_app_number = int(selected_app_number)
+                if selected_app_number < 2 or selected_app_number > self.index:
+                    # system dot files (<2)
+                    # unavailable applications (>self.index)
+                    print("Please enter a number between 2 and {0}"
+                          .format(self.index))
+                else:
+                    done = False
+
+            except ValueError:
+                print("Please enter a number between 2 and {0}"
+                      .format(self.index))
+
+        selected_app = self.all_apps[selected_app_number].replace(".app", "")
+        print("Are you sure you want to hide {} from the dock menu?"
+              .format(selected_app.upper()))
 
     def load_dodger_filer(self):
         """
@@ -90,4 +117,4 @@ class OSXDodger(BaseColors):
         return (sys_version >= allowed_version)
 
 dodge = OSXDodger()
-dodge.load_applications()
+# dodge.select_applications()
