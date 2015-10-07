@@ -23,5 +23,6 @@ setup(
     platform=platform,
     install_requires=[
         "tox",
+        "flake8"
     ]
 )
