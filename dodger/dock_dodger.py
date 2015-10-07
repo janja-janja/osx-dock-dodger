@@ -11,7 +11,7 @@ class BaseColors(object):
     BLUE = "\033[94m"
     GREEN = "\033[92m"
     WARNING = "\033[93m"
-    FAIL = "\033[91m"
+    RED = "\033[91m"
     ENDCOLOR = "\033[0m"
     BOLD = "\033[1m"
     UNDERLINE = "\033[4m"
@@ -58,24 +58,25 @@ class OSXDodger(BaseColors):
 
         done = True
         while done:
-            selected_app_number = raw_input()
+            selected_app_number = raw_input(self.RED + ">>> " + self.ENDCOLOR)
             try:
                 selected_app_number = int(selected_app_number)
                 if selected_app_number < 2 or selected_app_number > self.index:
                     # system dot files (<2)
                     # unavailable applications (>self.index)
-                    print("Please enter a number between 2 and {0}"
-                          .format(self.index))
+                    print("That app doesn't exist. Please enter a number"
+                          "between 2 and {0}".format(self.index))
                 else:
                     done = False
 
             except ValueError:
-                print("Please enter a number between 2 and {0}"
-                      .format(self.index))
+                print("Please enter a number between 2"
+                      " and {0}".format(self.index))
 
         selected_app = self.all_apps[selected_app_number].replace(".app", "")
-        print("Are you sure you want to hide {} from the dock menu?"
-              .format(selected_app.upper()))
+        print("Are you sure you want to hide " + self.RED + "{}"
+              .format(selected_app.upper() + self.ENDCOLOR + " from the Dock?")
+              )
 
     def load_dodger_filer(self):
         """
@@ -117,4 +118,4 @@ class OSXDodger(BaseColors):
         return (sys_version >= allowed_version)
 
 dodge = OSXDodger()
-# dodge.select_applications()
+dodge.select_applications()
