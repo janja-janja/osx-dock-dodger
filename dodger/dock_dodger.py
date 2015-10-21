@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+"""
+Hide a running application from showing on the dock.
+The application runs as a daemon i.e in the background
+"""
 import platform
 import time
 import os
@@ -77,6 +82,13 @@ class OSXDodger(BaseColors):
         print("Are you sure you want to hide " + self.RED + "{}"
               .format(selected_app.upper() + self.ENDCOLOR + " from the Dock?")
               )
+        # access the dir holding the selected application
+        directory = "{0}{1}.app/".format(self.app_dir, selected_app)
+
+        try:
+            os.chdir(directory)
+        except OSError:
+            print("Failed to to dock dodge :(")
 
     def load_dodger_filer(self):
         """

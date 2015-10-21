@@ -1,6 +1,6 @@
 from setuptools import setup
 
-name = "osx-dock-dodger"
+name = "dock-dodger"
 version = "1.0.0"
 platform = "Mac OS X"
 
